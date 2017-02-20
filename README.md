@@ -42,17 +42,13 @@ Reloading any of the pages will restore the initial state coming from the server
 
 ### Implementation details
 
-Each page is wrapped in a Provider component which takes a store object as parameter. 
-Its job is to provide the store to `connect`-ed child components. 
+Each page uses `withRefnux` helper which wraps the page in a Provider component.
 Page components are connected to the state using refnux `connect` function.
 
 In the `store/` directory you can see a simple implmentation of
 
-- a `getStore` function: it returns a new store on the server or 
-the existing store on the client. The store is initialized with an initial state.
-- a `counterIncrement` action that increments the counter state
-
-One could easily write a couple of actions to save and the state (or part of it) to
-localStorage, making the state persistent on page reload.
+- a `getInitialstate` function that returns the initial state of the store. It's used only on SSR
+- a `counterIncrement` action that increments the counter state whe user pushes the corresponding button
+- a `setTitle` action that's used to set page title during pages `getInitialProps`
 
 If you have any comment / question / pull requests please refer to the [original repository](https://github.com/davibe/next.js-example-with-refnux) where this example is developed and maintained.
