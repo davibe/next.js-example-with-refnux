@@ -1,19 +1,28 @@
-import { Provider, connect } from 'refnux'
+import { connect } from 'refnux'
 import Link from 'next/link'
 
-import getStore from '../store/getStore'
-import counterIncrement from '../store/counterIncrement'
+import withRefnux from '../helpers/withRefnux'
+import getInitialState from '../store/getInitialState'
 
-const Index = connect(
+// actions
+import counterIncrement from '../store/counterIncrement'
+import setTitle from '../store/setTitle'
+
+const Page2 = connect(
   (state, dispatch) =>
     <div>
-      <h3>Page 2</h3>
+      <h3>{state.title}</h3>
       <p>Current state: {JSON.stringify(state, null, 2)}</p>
       <button onClick={() => dispatch(counterIncrement)} >Increment</button>
       <Link href="/page1"><button>go to page 2</button></Link>
     </div>
 )
 
-const App = () => <Provider store={getStore()} app={Index} />
+Page2.getInitialProps = async function (context) {
+  const {store} = context
+  store.dispatch(setTitle('Page 2'))
+  return {}
+}
 
-export default App
+
+export default withRefnux(getInitialState, Page2)

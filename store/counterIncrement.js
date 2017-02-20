@@ -1,5 +1,5 @@
 
-const counterIncrement = ({counter}) => {
+const counterIncrement = ({counter}, dispatch) => {
   return { counter: counter + 1 }
 }
 
