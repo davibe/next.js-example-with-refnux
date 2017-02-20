@@ -2,6 +2,12 @@ import { Provider} from 'refnux'
 
 import getStore from './getStore'
 
+// The `withRefnux` "decorator"
+// - wraps the given Component in a refnux Provider component
+// - creates a `store` for the Provider handling different server side / client side cases
+// - runs wrapped component `getInitialProps` as expected
+// - passes `store` to Component's `getInitialProps` so that it can dispatch actions
+
 const withRefnux = (getInitialState, Component) => {
 
   const Wrapper = (props) => {
